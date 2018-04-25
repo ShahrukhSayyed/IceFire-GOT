@@ -1,0 +1,37 @@
+.icons {
+    color:#4ABDAC;
+}
+
+.house{
+    box-shadow: 0 4px 8px 0 #4ABDAC, 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 1.5em;
+}
+
+.book{    
+    box-shadow: 0 4px 8px 0 darkred, 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 1.5em;
+}
+
+
+.character{
+    box-shadow: 0 4px 8px 0 darkgreen, 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 1.5em;
+}
+
+.cardBorder{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+p{
+    color:darkviolet;    
+    font-weight: bold;
+}
+
+span{
+    color: dodgerblue;
+    font-style: italic;
+}
+
+h5{
+    color:#4ABDAC;    
+}

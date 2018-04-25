@@ -1,0 +1,99 @@
+<div class="container cardBorder padding">
+
+  <div class="row">
+    <h5>Filters...</h5>
+  </div>
+
+  <div class="row">
+    <div class="input-group col-sm-12 col-md-4 ">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon2">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+      <input type="text" name="nameValue" [(ngModel)]="nameValue" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon2">
+    </div>
+    <br>
+    <div class="input-group col-sm-12 col-md-4">
+      <div class="input-group-prepend" style="margin-right: 0.2vw;">
+        <label class="input-group-text" for="sort">Sort By</label>
+      </div>
+      <button class="btn btn-md btn-info active" (click)="setOrder('name')">
+        <i class="fas fa-sort-alpha-down" [hidden]="!reverse"> Ascending</i>
+        <i class="fas fa-sort-alpha-up" [hidden]="reverse"> Descending</i>
+      </button>
+    </div>
+    <br>
+    <div class="input-group col-sm-12 col-md-4">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="category">Category</label>
+      </div>
+      <select class="custom-select" id="category" [(ngModel)]="categoryValue" name="categoryValue">
+        <option value="All" ng-selected="All">All</option>
+        <option value="books">Books</option>
+        <option value="houses">Houses</option>
+        <option value="characters">Characters</option>
+      </select>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="alert alert-warning">
+  <strong>Warning!</strong> In character card if name is not found then Aliases are displayed. Data is sorted according to name.
+</div>
+
+<div class="row">
+  <div *ngFor="let item of final | orderBy: order:reverse:'case-sensitive' | orderData: categoryValue | filterData:nameValue"
+    class="col-sm-12 col-md-4">
+
+    <div *ngIf="item.url">
+      <div *ngIf="item.url.search('books')>-1" class="card book" id="bookDetails">
+        <div class="card-header text-center">
+          <img src="assets/book.jpg" alt="Norway" style="width:100%; max-height:29vh" class="fluid-image"> Book
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{item.name }}</h5>
+          <p class="card-text text-muted">{{item.authors}}
+            <br> {{item.mediaType}}
+          </p>
+          <a [routerLink]="['/got','books',getId(item.url)]" class="btn btn-info">Quick Look</a>
+        </div>
+      </div>
+
+
+      <div *ngIf="item.url.search('characters')>-1" class="card character" id="charDetails">
+
+        <div class="card-header text-center">
+          <img src="assets/{{item.gender}}.png" alt="Norway" style="width:100%; max-height:29vh" class="fluid-image"> Character
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{item.name || item.aliases}}</h5>
+          <p class="card-text text-muted">{{item.gender}}
+            <br>
+            <span>{{item.culture || 'No Culture'}}</span>
+          </p>
+          <a [routerLink]="['/got','characters',getId(item.url)]" class="btn btn-info">Quick Look</a>
+        </div>
+      </div>
+
+      <div *ngIf="item.url.search('houses')>-1" class="card house" id="houseDetails">
+        <div class="card-header text-center">
+          <img src="assets/house.jpg" alt="Norway" style="width:100%; max-height:40vh" class="fluid-image"> House
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text text-muted">{{item.region}}</p>
+          <blockquote class="blockquote text-muted" style="border-left: solid 5px #4ABDAC">
+            <p class="mb-0">{{item.words || 'No qoute'}}</p>
+          </blockquote>
+
+          <a [routerLink]="['/got','houses',getId(item.url)]" class="btn btn-info">Quick Look</a>
+        </div>
+      </div>
+      <br>
+
+    </div>
+  </div>
+
+</div>

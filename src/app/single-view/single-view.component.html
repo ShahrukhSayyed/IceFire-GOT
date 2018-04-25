@@ -1,0 +1,303 @@
+<div class="row">
+    <button type="button" class="btn btn-outline-info" (click)="goBack()"><i class="fas fa-arrow-circle-left"></i></button>
+</div>
+<br>
+
+<div class="row" *ngIf="singleItem.url">
+  <div *ngIf="singleItem.url.search('books')>-1" class="card col-md-12 cardBorder">
+    <div class="card-header book ">
+      Book
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-2 text-center">
+        <img src="assets/book.jpg" alt="Norway" style="width:100%; height:auto" class="fluid-image"> Book
+      </div>
+
+      <div class="col-sm-12 col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">{{singleItem.name}}
+            <span class="text-muted">{{singleItem.mediaType}} </span>
+            <span class="text-muted"> {{singleItem.released | date}} </span>
+          </h5>
+          <p class="card-text"> by
+            <span class="text-primary"> {{singleItem.authors}} </span>
+          </p>
+
+          <div id="accordion">
+            <div class="card col-sm-12 col-md-10">
+              <div class="card-header">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  See Information
+                </button>
+              </div>
+
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  <h5> All Book Information</h5>
+                  <p>{{singleItem.mediaType}} :
+                    <span>{{singleItem.numberOfPages}} pages </span>
+                  </p>
+                  <p> Publisher :
+                    <span>{{singleItem.publisher}}; {{singleItem.released | date}}</span>
+                  </p>
+                  <p>Language :
+                    <span>English</span>
+                  </p>
+                  <p>Country :
+                    <span>{{singleItem.country}}</span>
+                  </p>
+                  <p>ISBN-13 :
+                    <span>{{singleItem.isbn}}</span>
+                  </p>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="card col-sm-12 col-md-10">
+              <div class="card-header" id="headingTwo">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  See Characters
+                </button>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body" style="overflow-y:scroll;height: 80px;">
+                  <h5>All Characters in the book</h5>
+
+                  <div *ngFor="let character of singleItem.characters">
+                    <a [routerLink]="['/got','characters',getId(character)]" class="btn btn-link">{{character}}</a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="card col-sm-12 col-md-10">
+              <div class="card-header" id="headingThree">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  See POV Characters
+                </button>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body" style="overflow-y:scroll;height: 80px;">
+                  <h5> All POV Characters in the book</h5>
+
+                  <p *ngIf="singleItem.povCharacters.length < 0">No POV Characters</p>
+                  <div *ngFor="let character of singleItem.povCharacters">
+                    <a [routerLink]="['/got','characters',getId(character)]" class="btn btn-link">{{character}}</a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="singleItem.url.search('houses')>-1" class="card col-md-12 cardBorder">
+    <div class="card-header house">
+      House
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-2 text-center">
+        <img src="assets/house.jpg" alt="Norway" style="width:100%; height:auto" class="fluid-image"> House
+      </div>
+
+      <div class="col-sm-12 col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">{{singleItem.name}} -
+            <span class="text-muted"> {{singleItem.region}} </span>
+          </h5>
+          <blockquote class="blockquote" style="border-left: solid 5px #4ABDAC">
+            <p class="mb-0">{{singleItem.words}}</p>
+          </blockquote>
+
+          <div id="accordion">
+            <div class="card col-sm-12 col-md-10">
+              <div class="card-header">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  See Information
+                </button>
+              </div>
+
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  <h5> All House Information</h5>
+                  <p *ngIf="singleItem.coatOfArms != ''"> Coat Of Arms :
+                    <span>{{singleItem.coatOfArms}}</span>
+                  </p>
+                  <p *ngIf="singleItem.currentLord != ''"> Current Lord :
+                    <span>
+                      <a [routerLink]="['/got','characters',getId(singleItem.currentLord)]" class="btn btn-link">Character : {{getId(singleItem.currentLord)}}</a>
+                    </span>
+                  </p>
+                  <p *ngIf="singleItem.heir != ''"> Heir :
+                    <span>
+                      <a [routerLink]="['/got','characters',getId(singleItem.heir)]" class="btn btn-link">Character : {{getId(singleItem.heir)}}</a>
+                    </span>
+                  </p>
+                  <p *ngIf="singleItem.overlord != ''"> Overlord :
+                    <span>
+                      <a [routerLink]="['/got','houses',getId(singleItem.overlord)]" class="btn btn-link">House : {{getId(singleItem.overlord)}}</a>
+                    </span>
+                  </p>
+                  <p *ngIf="singleItem.founder != ''"> Founder :
+                    <span>
+                      <a [routerLink]="['/got','characters',getId(singleItem.founder)]" class="btn btn-link">Character : {{getId(singleItem.founder)}}</a>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card col-sm-12 col-md-10">
+              <div class="card-header" id="headingTwo">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  See Sworn Members
+                </button>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body" style="overflow-y:scroll;height: 80px;">
+                  <h5>All Sworn Members </h5>
+                  <div *ngFor="let member of singleItem.swornMembers">
+                    <a [routerLink]="['/got','characters',getId(member)]" class="btn btn-link">{{member}}</a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="card col-sm-12 col-md-10">
+              <div class="card-header" id="headingThree">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  See Titles and Seats
+                </button>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body" style="overflow-y:scroll;height: 80px;">
+                  <h5> All Titles </h5>
+
+                  <div *ngFor="let title of singleItem.titles">
+                    {{title}}
+                  </div>
+                  <br>
+                  <h5> All Seats</h5>
+                  <div *ngFor="let seat of singleItem.seats">
+                    {{seat}}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="singleItem.url.search('characters')>-1" class="card col-md-12 cardBorder">
+    <div class="card-header house">
+      Character
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-2 text-center">
+        <img src="assets/{{singleItem.gender}}.png" alt="Norway" style="width:100%; height:auto" class="fluid-image"> Character
+      </div>
+
+      <div class="col-sm-12 col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">{{singleItem.name || singleItem.aliases}} -
+            <span class="text-muted"> {{singleItem.gender}} </span>
+          </h5>
+          <blockquote class="blockquote" style="border-left: solid 5px #4ABDAC">
+            <p class="mb-0">{{singleItem.culture}}</p>
+          </blockquote>
+
+          <div id="accordion">
+            <div class="card col-sm-12 col-md-10">
+              <div class="card-header">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  See Information
+                </button>
+              </div>
+
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  <h5> All Character Information</h5>
+                  <p *ngIf="singleItem.born != ''"> Born :
+                    <span>{{singleItem.born}} </span>
+                  </p>
+                  <p *ngIf="singleItem.died != ''"> Died :
+                    <span>{{singleItem.died}} </span>
+                  </p>
+                  <p *ngIf="singleItem.father != ''"> Father :
+                    <span>
+                      <a [routerLink]="['/got','characters',getId(singleItem.father)]" class="btn btn-link">Character No : {{getId(singleItem.father)}}</a>
+                    </span>
+                  </p>
+                  <p *ngIf="singleItem.mother != ''"> Mother :
+                    <span>
+                      <a [routerLink]="['/got','characters',getId(singleItem.mother)]" class="btn btn-link">Character No : {{getId(singleItem.mother)}}</a>
+                    </span>
+                  </p>
+                  <p *ngIf="singleItem.spouse != ''"> Spouse :
+                    <span>
+                      <a [routerLink]="['/got','characters',getId(singleItem.spouse)]" class="btn btn-link">Character No : {{getId(singleItem.spouse)}}</a>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card col-sm-12 col-md-10">
+              <div class="card-header" id="headingTwo">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  See Aliases
+                </button>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body" style="overflow-y:scroll;height: 80px;">
+                  <h5>All Aliases </h5>
+                  <div *ngFor="let alias of singleItem.aliases">
+                    {{alias}}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="card col-sm-12 col-md-10">
+              <div class="card-header" id="headingThree">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  See Books and TV Series
+                </button>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body" style="overflow-y:scroll;height: 80px;">
+                  <h5> All Books </h5>
+
+                  <div *ngFor="let book of singleItem.books">
+                    <a [routerLink]="['/got','books',getId(book)]" class="btn btn-link">Book No : {{getId(book)}}</a>
+                  </div>
+                  <br>
+
+                  <h5> All TV Series</h5>
+                  <div *ngFor="let series of singleItem.tvSeries">
+                    {{series}}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
