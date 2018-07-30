@@ -99,7 +99,7 @@ View 2 - On clicking the card, a view containing the detail of that book/charact
 
 ## Authors
 
-* **Shahrukh Sayyed** - *Initial work* - [PurpleBooth](https://github.com/ShahrukhSayyed)
+* **Shahrukh Sayyed** - *Initial work* - [ShahrukhSayyed](https://github.com/ShahrukhSayyed)
 
 ## License
 
